@@ -1,0 +1,23 @@
+loadi(65,7);
+loadi(66,8);
+loadi(22,35);
+loadi(23,36);
+loadi(2, 15);
+loadi(3, 16);
+PTBR = PAGE_TABLE_BASE;
+//Page table size is 10
+PTLR = 10;   
+//Page no 4
+[PTBR+8] = 65;
+[PTBR+9] = "0100";
+//Page no 5
+[PTBR+10] = 66;
+[PTBR+11] = "0100";
+//Page no 8
+[PTBR+16] = 76;
+[PTBR+17] = "0110";
+//Stack pointer set to logical address of stack 
+SP = 8*512;
+//First word of stack's physical address is set to first word of code
+[76*512] = 4*512;
+ireturn;
