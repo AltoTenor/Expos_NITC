@@ -1,0 +1,10 @@
+MOV R0, 1
+loop:
+PORT P1, R0
+OUT
+BRKP
+MOV R16, 20 
+EQ R16, R0
+INR R0
+JZ R16,loop
+HALT
