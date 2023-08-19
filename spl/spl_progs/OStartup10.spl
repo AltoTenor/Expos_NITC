@@ -51,14 +51,20 @@ PTLR = 10;
 [PTBR+19] = "0110";
 
 //PROCESS_TABLE and SYSTEM_STATUS_TABLE
+
+//UAPage No
 [PROCESS_TABLE + 11] = 80;
+
+//PID
 [PROCESS_TABLE + 1] = 0;
 
+//Currently executing process
 [SYSTEM_STATUS_TABLE + 1] = 0;
 
 
-
+//Stack Ptr set to supposed logical address of Stack 
 SP = 8*512;
+//First entry of Stack 
 [76*512] = [65 * 512 + 1];
 ireturn;
 
