@@ -1,0 +1,8 @@
+load --int=timer $HOME/myexpos/spl/spl_progs/sample_timer_12.xsm
+load --int=7 $HOME/myexpos/spl/spl_progs/sample_int7.xsm
+load --int=10 $HOME/myexpos/spl/spl_progs/haltprog.xsm
+load --exhandler $HOME/myexpos/spl/spl_progs/haltprog.xsm
+load --library $HOME/myexpos/expl/library.lib
+load --init $HOME/myexpos/expl/expl_progs/numbers_11.xsm
+load --os $HOME/myexpos/spl/spl_progs/OStartup12.xsm
+load --idle $HOME/myexpos/expl/expl_progs/idle.xsm
