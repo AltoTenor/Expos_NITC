@@ -1,0 +1,16 @@
+int main()
+{
+decl
+    int num;
+    str temp;
+enddecl
+begin
+    num=1;
+    temp="a";
+    while ( temp <= "z" ) do
+        temp = temp + 1;
+        num = exposcall ( "Write" , -2, temp );
+    endwhile;
+    return 0;
+end
+}

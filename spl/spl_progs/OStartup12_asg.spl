@@ -23,9 +23,6 @@ loadi(17,30);
 
 //FOR IDLE CODE
 PTBR=PAGE_TABLE_BASE;  //as PID of idle process is 0
-
-
-//NOT SURE IF ITS 20 or 10
 PTLR = 10;
 
 //Library
