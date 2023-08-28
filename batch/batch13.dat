@@ -4,5 +4,6 @@ load --int=10 $HOME/myexpos/spl/spl_progs/haltprog.xsm
 load --exhandler $HOME/myexpos/spl/spl_progs/haltprog.xsm
 load --library $HOME/myexpos/expl/library.lib
 load --init $HOME/myexpos/expl/expl_progs/numbers_11.xsm
-load --os $HOME/myexpos/spl/spl_progs/OStartup12_asg.xsm
-load --idle $HOME/myexpos/expl/expl_progs/idle_asm12.xsm
+load --module 7 $HOME/myexpos/spl/spl_progs/MOD_7_stage13.xsm
+load --os $HOME/myexpos/spl/spl_progs/OStartup13.xsm
+load --idle $HOME/myexpos/expl/expl_progs/idle.xsm
