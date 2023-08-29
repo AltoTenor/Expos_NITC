@@ -1,12 +1,12 @@
-load --int=7 $HOME/myexpos/spl/spl_progs/sample_int7.xsm
-load --exhandler $HOME/myexpos/spl/spl_progs/haltprog.xsm
+load --int=7 $HOME/myexpos/spl/spl_progs/Stage14/sample_int7.xsm
+load --exhandler $HOME/myexpos/spl/spl_progs/Stage14/haltprog.xsm
 load --library $HOME/myexpos/expl/library.lib
-load --idle $HOME/myexpos/expl/expl_progs/idle.xsm
-load --int=10 $HOME/myexpos/spl/spl_progs/sample_int10.xsm
-load --int=timer $HOME/myexpos/spl/spl_progs/sample_timer_14.xsm
-load --module 7 $HOME/myexpos/spl/spl_progs/MOD_7_stage14_asm.xsm
-load --module 5 $HOME/myexpos/spl/spl_progs/MOD_5_stage14.xsm
-load --os $HOME/myexpos/spl/spl_progs/OStartup14.xsm
-load --init $HOME/myexpos/expl/expl_progs/oddnos.xsm
-load --exec $HOME/myexpos/expl/expl_progs/evennos.xsm
-load --exec $HOME/myexpos/expl/expl_progs/primenos.xsm
+load --idle $HOME/myexpos/expl/expl_progs/Stage14/idle.xsm
+load --int=10 $HOME/myexpos/spl/spl_progs/Stage14/sample_int10.xsm
+load --int=timer $HOME/myexpos/spl/spl_progs/Stage14/sample_timer_14.xsm
+load --module 7 $HOME/myexpos/spl/spl_progs/Stage14/MOD_7_stage14_asm.xsm
+load --module 5 $HOME/myexpos/spl/spl_progs/Stage14/MOD_5_stage14.xsm
+load --os $HOME/myexpos/spl/spl_progs/Stage14/OStartup14.xsm
+load --init $HOME/myexpos/expl/expl_progs/Stage14/oddnos.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage14/evennos.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage14/primenos.xsm

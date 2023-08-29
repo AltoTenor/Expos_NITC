@@ -1,9 +1,9 @@
-load --int=timer $HOME/myexpos/spl/spl_progs/sample_timer_12.xsm
-load --int=7 $HOME/myexpos/spl/spl_progs/sample_int7.xsm
-load --int=10 $HOME/myexpos/spl/spl_progs/haltprog.xsm
-load --exhandler $HOME/myexpos/spl/spl_progs/haltexc.xsm
+load --int=timer $HOME/myexpos/spl/spl_progs/Stage13/sample_timer_12.xsm
+load --int=7 $HOME/myexpos/spl/spl_progs/Stage13/sample_int7.xsm
+load --int=10 $HOME/myexpos/spl/spl_progs/Stage13/haltprog.xsm
+load --exhandler $HOME/myexpos/spl/spl_progs/Stage13/haltexc.xsm
 load --library $HOME/myexpos/expl/library.lib
-load --init $HOME/myexpos/expl/expl_progs/numbers_13.xsm
-load --module 7 $HOME/myexpos/spl/spl_progs/MOD_7_stage13.xsm
-load --os $HOME/myexpos/spl/spl_progs/OStartup13.xsm
-load --idle $HOME/myexpos/expl/expl_progs/idle_asm13.xsm
+load --init $HOME/myexpos/expl/expl_progs/Stage13/numbers_13.xsm
+load --module 7 $HOME/myexpos/spl/spl_progs/Stage13/MOD_7_stage13.xsm
+load --os $HOME/myexpos/spl/spl_progs/Stage13/OStartup13.xsm
+load --idle $HOME/myexpos/expl/expl_progs/Stage13/idle_asm13.xsm

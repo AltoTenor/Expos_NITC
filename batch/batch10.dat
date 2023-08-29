@@ -1,6 +1,6 @@
-load --os $HOME/myexpos/spl/spl_progs/OStartup10.xsm
-load --int=timer $HOME/myexpos/spl/spl_progs/sample_timer_9.xsm
-load --int=7 $HOME/myexpos/spl/spl_progs/sample_int7.xsm
-load --init $HOME/myexpos/expl/expl_progs/sqaures_st10.xsm
-load --exhandler $HOME/myexpos/spl/spl_progs/haltprog.xsm
-load --int=10 $HOME/myexpos/spl/spl_progs/haltprog.xsm
+load --os $HOME/myexpos/spl/spl_progs/Stage10/OStartup10.xsm
+load --int=timer $HOME/myexpos/spl/spl_progs/Stage10/sample_timer_9.xsm
+load --int=7 $HOME/myexpos/spl/spl_progs/Stage10/sample_int7.xsm
+load --init $HOME/myexpos/expl/expl_progs/Stage10/sqaures_st10.xsm
+load --exhandler $HOME/myexpos/spl/spl_progs/Stage10/haltprog.xsm
+load --int=10 $HOME/myexpos/spl/spl_progs/Stage10/haltprog.xsm
