@@ -17,7 +17,7 @@ begin
             t1 = t1 + 1;
         endwhile;
         if ( flag == 1 )then    
-            retval = exposcall("Write",-2,p);
+            // retval = exposcall("Write",-2,p);
             retval = exposcall("Write",-2,num);
         endif;
         num = num + 1;
