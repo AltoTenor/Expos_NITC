@@ -1,14 +1,16 @@
 alias userSP R0;
 userSP=SP;
-
+alias currentPID R10;
+R10 = [SYSTEM_STATUS_TABLE + 1];
+breakpoint;
 //UPTR set to Stack Ptr
-[PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
+[PROCESS_TABLE + ( currentPID * 16) + 13] = SP;
 
 //Stack Pointer set to bottom UA Page No.
-SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
+SP = [PROCESS_TABLE + (currentPID * 16) + 11] * 512 - 1;
 
 //Set MODE Flag to 9
-[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 9;
+[PROCESS_TABLE + currentPID * 16 + 9] = 9;
 
 //Accessing physical File Name location
 
@@ -46,10 +48,10 @@ if ( fileInodeIndex == MAX_FILE_NUM || [ INODE_TABLE + ( fileInodeIndex * 16 ) +
     [physicalAddrRetVal] = -1;
 
     // Reset Mode Flag
-    [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
+    [PROCESS_TABLE + currentPID * 16 + 9] = 0;
 
     //Reset Stack pointer
-    SP = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13];
+    SP = [PROCESS_TABLE + ( currentPID * 16) + 13];
     ireturn;
 endif;
 
@@ -57,45 +59,45 @@ endif;
 
 //Calling the exit process with func no. = 3 
 
-multipush(R0,R1,R2,R3,R4,R5,R6,PTBR,PTLR);
+multipush(R0,R1,R2,R3,R4,R5,R6,R10,PTBR,PTLR);
 
 R1 = 3;
-R2 = [SYSTEM_STATUS_TABLE + 1];
+R2 = currentPID;
 call PROCESS_MANAGER;
 
-multipop(R0,R1,R2,R3,R4,R5,R6,PTBR,PTLR);
+multipop(R0,R1,R2,R3,R4,R5,R6,R10,PTBR,PTLR);
 
 
 //Reclaiming UAPage
 alias UAPage R7;
-UAPage = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11];
+UAPage = [PROCESS_TABLE + (currentPID * 16) + 11];
 [MEMORY_FREE_LIST + UAPage] = [MEMORY_FREE_LIST + UAPage] + 1;
 [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] - 1;
 
 //New Kernel Stack initialised
-SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
+SP = [PROCESS_TABLE + (currentPID * 16) + 11] * 512 - 1;
 
 //Per Process Resource Table initialised
 
-// alias perProcessResourceEntry R8 ;
-// perProcessResourceEntry = (UAPage*512) + RESOURCE_TABLE_OFFSET;
-// while ( perProcessResourceEntry < (UAPage+1)*512 )do
-//     [perProcessResourceEntry] = -1;
-//     perProcessResourceEntry = perProcessResourceEntry + 2;
-// endwhile;
+alias perProcessResourceEntry R8 ;
+perProcessResourceEntry = (UAPage*512) + RESOURCE_TABLE_OFFSET;
+while ( perProcessResourceEntry < (UAPage+1)*512 )do
+    [perProcessResourceEntry] = -1;
+    perProcessResourceEntry = perProcessResourceEntry + 2;
+endwhile;
 
 
 
 //STATE field set
-[PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 4] = RUNNING;
+[PROCESS_TABLE + (currentPID * 16) + 4] = RUNNING;
 
 //Inode index field of Process Table updated with new process for exec() needs it to load it from the disk
-[PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 7] = fileInodeIndex;
+[PROCESS_TABLE + (currentPID * 16) + 7] = fileInodeIndex;
 
 //Allocating new pages
 
-PTBR = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 14];
-PTLR = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 15];
+PTBR = [PROCESS_TABLE + (currentPID * 16) + 14];
+PTLR = [PROCESS_TABLE + (currentPID * 16) + 15];
 
 //Library
 [PTBR+0] = 63;
@@ -104,18 +106,18 @@ PTLR = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 15];
 [PTBR+3] = "0100";
 
 //Heap
-multipush(R0,R1,R2,R3,R4,R5,R6,R7,PTBR,PTLR);
+multipush(R0,R1,R2,R3,R4,R5,R6,R7,R10,PTBR,PTLR);
 R1 = 1;
 call MEMORY_MANAGER;
 [PTBR+4] = R0;
-multipop(R0,R1,R2,R3,R4,R5,R6,R7,PTBR,PTLR);
+multipop(R0,R1,R2,R3,R4,R5,R6,R7,R10,PTBR,PTLR);
 [PTBR+5] = "0110";
 
-multipush(R0,R1,R2,R3,R4,R5,R6,R7,PTBR,PTLR);
+multipush(R0,R1,R2,R3,R4,R5,R6,R7,R10,PTBR,PTLR);
 R1 = 1;
 call MEMORY_MANAGER;
 [PTBR+6] = R0;
-multipop(R0,R1,R2,R3,R4,R5,R6,R7,PTBR,PTLR);
+multipop(R0,R1,R2,R3,R4,R5,R6,R7,R10,PTBR,PTLR);
 [PTBR+7] = "0110";
 
 //Code
@@ -140,11 +142,11 @@ endwhile;
 
 R9 = 0;
 while( R9 != countOfPages )do
-    multipush(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,PTBR,PTLR);
+    multipush(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,PTBR,PTLR);
     R1 = 1;
     call MEMORY_MANAGER;
     [PTBR + 8 + ( 2 * R9 ) ] = R0;
-    multipop(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,PTBR,PTLR);
+    multipop(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,PTBR,PTLR);
     [PTBR + 8 + ( 2 * R9 ) + 1 ] = "0100";
     R9 = R9 + 1;
 endwhile;
@@ -153,31 +155,31 @@ endwhile;
 
 
 //Stack
-multipush(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,PTBR,PTLR);
+multipush(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,PTBR,PTLR);
 R1 = 1;
 call MEMORY_MANAGER;
 [PTBR + 16 ] = R0;
-multipop(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,PTBR,PTLR);
+multipop(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,PTBR,PTLR);
 [PTBR + 17 ] = "0110";
 
-multipush(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,PTBR,PTLR);
+multipush(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,PTBR,PTLR);
 R1 = 1;
 call MEMORY_MANAGER;
 [PTBR + 18 ] = R0;
-multipop(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,PTBR,PTLR);
+multipop(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,PTBR,PTLR);
 [PTBR + 19 ] = "0110";
 
 //Loading code blocks
 R9 = 0;
 while( R9 != countOfPages )do   
 
-    multipush(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,PTBR,PTLR);
+    multipush(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,PTBR,PTLR);
     R1 = 2;
-    R2 = [SYSTEM_STATUS_TABLE + 1];
+    R2 = currentPID;
     R3 = [PTBR + 8 + ( 2 * R9 ) ];
     R4 = [ INODE_TABLE + ( fileInodeIndex * 16 ) + 8 + R9 ];
     call DEVICE_MANAGER;
-    multipop(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,PTBR,PTLR);
+    multipop(R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,PTBR,PTLR);
 
     R9 = R9 + 1;
 endwhile;
@@ -186,7 +188,7 @@ endwhile;
 
 
 // Reset Mode Flag
-[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
+[PROCESS_TABLE + currentPID * 16 + 9] = 0;
 
 SP = 8 * 512;
 ireturn;

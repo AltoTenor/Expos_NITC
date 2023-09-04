@@ -18,3 +18,4 @@ load --idle $HOME/myexpos/expl/expl_progs/Stage18/idle.xsm
 load --init $HOME/myexpos/expl/expl_progs/Stage18/shell.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage18/oddnos.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage18/gcd.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage18/evennos.xsm

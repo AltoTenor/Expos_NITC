@@ -1,55 +1,59 @@
 //BOOT MODULE
 
-//Init Code 
-loadi(65,7);
-loadi(66,8);
-//INT 10
-loadi(22,35);
-loadi(23,36);
 //Exhandler
 loadi(2, 15);
 loadi(3, 16);
-//Library
-loadi(63,13);
-loadi(64,14);
 //Timer
 loadi(4, 17);
 loadi(5, 18);
+//Disk Interrupt
+loadi(6, 19);
+loadi(7, 20);
+//Console Interrupt
+loadi(8, 21);
+loadi(9, 22);
+
+//INT 6
+loadi(14,27);
+loadi(15,28);
 //INT 7
 loadi(16,29);
 loadi(17,30);
-//Exec Code
-// loadi(83,69);
-//MODULE 7 - SCHEDULER MODULE
-loadi(50,63);
-loadi(51,64);
+//INT 9
+loadi(20,33);
+loadi(21,34);
+//INT 10
+loadi(22,35);
+loadi(23,36);
+
+
+
 //MODULE 0 - RESOURCE_MANAGER MODULE
 loadi(40,53);
 loadi(41,54);
-//MODULE 4 - DISK DEVICE_MANAGER MODULE
-loadi(48,61);
-loadi(49,62);
 //MODULE 1 - PROCESS_MANAGER MODULE
 loadi(42,55);
 loadi(43,56);
 //MODULE 2 - MEMORY_MANAGER MODULE
 loadi(44,57);
 loadi(45,58);
-//Console Interrupt
-loadi(8,21);
-loadi(9,22);
-//Disk Interrupt
-loadi(6,19);
-loadi(7,20);
-//INT 6
-loadi(14,27);
-loadi(15,28);
-//INT 9
-loadi(20,33);
-loadi(21,34);
+//MODULE 4 - DISK DEVICE_MANAGER MODULE
+loadi(48,61);
+loadi(49,62);
+//MODULE 7 - SCHEDULER MODULE
+loadi(50,63);
+loadi(51,64);
+
 //InodeUser Table
 loadi(59,3);
 loadi(60,4);
+
+//Library
+loadi(63,13);
+loadi(64,14);
+//Init Code 
+loadi(65, 7);
+loadi(66, 8);
 
 //TERMINAL_STATUS_TABLE
 
