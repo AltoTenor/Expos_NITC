@@ -9,28 +9,45 @@ endtype
 
 int main(){
     decl
-        Node head,temp,prev;
-        int retval,i;
+        Node head,cur,prev;
+        int retval;
+        int i;
+        int value;
+        int n;
+        str check;
     enddecl
     begin
-        retval=exposcall("Heapset");
-        head=exposcall("Alloc",2);
-        head.val = 1;
+        check = "chk";
+        i = 1;
+        retval = exposcall("Heapset");
+        retval = exposcall("Read",-1,n);
+
+        retval = exposcall("Read",-1,value);
+
+        head = exposcall("Alloc",2);
+        head.val = value;
+        head.next = null;
+
+        retval = exposcall("Write",-2,head.val);
         prev = head;
-        i=2;
-        while(i<100)do
-            temp=exposcall("Alloc",2);
-            temp.val = i;
-            // retval = exposcall("Write",-2,temp.val);
-            prev.next = temp;
-            prev = temp;
+        while( i < n )do
+            retval = exposcall("Read",-1,value);
+
+            cur = exposcall("Alloc", 2);
+            cur.val = value;
+            cur.next = null;
+            prev.next = cur;
+            prev = cur;
+            retval = exposcall("Write",-2,cur.val);
             i = i + 1;
         endwhile;
-        temp = head;
-        while(temp != null)do
-            retval = exposcall("Write",-2,temp.val);
-            temp = temp.next;
+
+        prev = head;
+        while(prev!=null)do
+            retval = exposcall("Write",-2,prev.val);
+            prev=prev.next;
         endwhile;
+
         return 0;
     end
 }

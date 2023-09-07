@@ -20,6 +20,7 @@ load --exec $HOME/myexpos/expl/expl_progs/Stage19/oddnos.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage19/gcd.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage19/student.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage19/LList.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage19/LList1.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage19/div0.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage19/evennos.xsm   
 load --exec $HOME/myexpos/expl/expl_progs/Stage19/bubsort.xsm   
