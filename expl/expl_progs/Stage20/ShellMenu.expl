@@ -1,0 +1,26 @@
+int main()
+{
+    decl
+        int a,temp,pid;
+        str input,inv,inv1;
+    enddecl
+    begin
+        inv = "EnterFileName/";
+        inv1 = "-1toEnd: ";
+        temp = exposcall("Write",-2,inv);
+        temp = exposcall("Write",-2,inv1);
+
+        temp = exposcall("Read",-1,input);
+
+        while(pid!=3)do
+            pid = exposcall("Fork");
+            if (pid==0)then
+                temp = exposcall("Exec",input);
+            else
+                temp = exposcall("Read",-1,input);
+            endif;
+        endwhile;
+
+        return 0;
+    end
+}
