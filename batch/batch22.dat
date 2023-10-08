@@ -1,0 +1,40 @@
+load --os $HOME/myexpos/spl/spl_progs/Stage22/OStartup14.xsm
+load --library $HOME/myexpos/expl/library.lib
+load --module 0 $HOME/myexpos/spl/spl_progs/Stage22/MOD_0_stage22.xsm
+load --module 1 $HOME/myexpos/spl/spl_progs/Stage22/MOD_1_stage22.xsm
+load --module 2 $HOME/myexpos/spl/spl_progs/Stage22/MOD_2_stage19.xsm
+load --module 4 $HOME/myexpos/spl/spl_progs/Stage22/MOD_4_stage18.xsm
+load --module 5 $HOME/myexpos/spl/spl_progs/Stage22/MOD_5_stage20.xsm
+load --module 7 $HOME/myexpos/spl/spl_progs/Stage22/MOD_7_stage22.xsm
+load --int=timer $HOME/myexpos/spl/spl_progs/Stage22/sample_timer_14.xsm
+load --int=console $HOME/myexpos/spl/spl_progs/Stage22/console_int16.xsm
+load --int=disk $HOME/myexpos/spl/spl_progs/Stage22/disk_int18.xsm
+load --int=6 $HOME/myexpos/spl/spl_progs/Stage22/int6_stage16.xsm
+load --int=7 $HOME/myexpos/spl/spl_progs/Stage22/int7_stage15.xsm
+load --int=8 $HOME/myexpos/spl/spl_progs/Stage22/int8_stage22.xsm
+load --int=9 $HOME/myexpos/spl/spl_progs/Stage22/int9_stage19.xsm
+load --int=10 $HOME/myexpos/spl/spl_progs/Stage22/int10_stage20.xsm
+load --int=11 $HOME/myexpos/spl/spl_progs/Stage22/int11_stage21.xsm
+load --int=13 $HOME/myexpos/spl/spl_progs/Stage22/int13_stage22.xsm
+load --int=14 $HOME/myexpos/spl/spl_progs/Stage22/int14_stage22.xsm
+load --int=15 $HOME/myexpos/spl/spl_progs/Stage22/int15_stage21.xsm
+load --exhandler $HOME/myexpos/spl/spl_progs/Stage22/exception_handler.xsm
+load --idle $HOME/myexpos/expl/expl_progs/Stage22/idle.xsm
+load --init $HOME/myexpos/expl/expl_progs/Stage22/ShellMenu.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/oddnos.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/gcd.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/student.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/LList.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/LList1.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/div0.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/pid.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/ppid.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/fork8.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/evennos.xsm   
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/bubsort.xsm   
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/waitsig.xsm   
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/read_wri.xsm   
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/parent.xsm   
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/child.xsm   
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/msortseq.xsm   
+load --exec $HOME/myexpos/expl/expl_progs/Stage22/msortcon.xsm   

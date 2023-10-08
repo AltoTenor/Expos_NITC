@@ -32,7 +32,7 @@ sysCallNo=[sysCallNoPhysicalAddr];
 
 [PROCESS_TABLE + currPID * 16 + 9] = sysCallNo;
 
-
+//Get PID
 if (sysCallNo == 11)then
 
     alias physicalPageNum R1;
@@ -44,6 +44,7 @@ if (sysCallNo == 11)then
 
 endif;
 
+//Get PPID
 if (sysCallNo == 12)then
 
     alias physicalPageNum R1;
@@ -55,6 +56,7 @@ if (sysCallNo == 12)then
     
 endif;
 
+//WAIT SysCall
 if (sysCallNo == 13)then
 
     alias physicalPageNum R1;
@@ -68,13 +70,14 @@ if (sysCallNo == 13)then
 
     argPID = [argPIDaddr];
 
-    if (argPID == currPID || [PROCESS_TABLE + argPID * 16 + 4]==TERMINATED )then
+    if (argPID == currPID || [PROCESS_TABLE + argPID * 16 + 4]==TERMINATED || argPID >=16 || argPID<0 )then
 
         physicalPageNum = [PTBR + 2 * ((userSP - 1)/ 512)];
         offset = (userSP - 1) % 512;
         [(physicalPageNum * 512) + offset] = -1;
 
     else
+        //Setting process to Wait till Child signals or exits
         [PROCESS_TABLE + currPID * 16 + 4] = WAIT_PROCESS;
         [PROCESS_TABLE + currPID * 16 + 5] = argPID;
 
@@ -91,12 +94,13 @@ if (sysCallNo == 13)then
 
 endif;
 
-
+//SIGNAL SysCall
 if (sysCallNo == 14)then
     alias ind R4;
     ind = 0;
+    //Check for Waiting process and ready them
     while (ind < MAX_PROC_NUM)do
-        if ( [PROCESS_TABLE + ( ind * 16) + 4]== WAIT_PROCESS && [PROCESS_TABLE + ( ind * 16) + 5] == currPID)then
+        if ( [PROCESS_TABLE + ( ind * 16) + 4]== WAIT_PROCESS && [PROCESS_TABLE + ( ind * 16) + 5] == currPID )then
             [PROCESS_TABLE + ( ind * 16) + 4] = READY;
         endif;
         ind = ind + 1;

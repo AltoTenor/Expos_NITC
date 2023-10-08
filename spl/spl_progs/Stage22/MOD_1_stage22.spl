@@ -28,11 +28,33 @@ endif;
 
 //FREE USER AREA PAGE 
 if (functionNum == 2)then
+
     multipush(R0,R1,R2,R3);
+
+    alias resourceTableBase R1;
+    resourceTableBase = [PROCESS_TABLE + (currentPID * 16) + 11]*512 + 496;
+    
+    alias i R4;
+    i = 0;
+    while(i<8)do
+        if ( [resourceTableBase + 2*i] == 1 )then
+            multipush(R0,R1,R2,R3,R4);
+            R1 = 7;
+            R2 = [resourceTableBase + 2*i + 1];
+            R3 = [SYSTEM_STATUS_TABLE+1];
+            call RESOURCE_MANAGER;
+            multipop(R0,R1,R2,R3,R4);
+        endif;
+        i = i + 1;
+    endwhile;
+
     R1 = 2;
     R2 = [PROCESS_TABLE + (currentPID * 16) + 11];
     call MEMORY_MANAGER;
     multipop(R0,R1,R2,R3);
+
+
+
     return;
 endif;
 
@@ -57,12 +79,14 @@ if (functionNum == 3)then
         alias ind R1;
         ind = 0;
         while (ind < MAX_PROC_NUM)do
-            if ( [PROCESS_TABLE + ( ind * 16) + 4]== WAIT_PROCESS && [PROCESS_TABLE + ( ind * 16) + 5 ] == currentPID )then
+            if ( [PROCESS_TABLE + ( ind * 16) + 4]== WAIT_PROCESS && [PROCESS_TABLE + ( ind * 16) + 5 ] == currentPID)then
                 [PROCESS_TABLE + ( ind * 16) + 4] = READY;
             endif;
             if ( [PROCESS_TABLE + ( ind * 16) + 2] == currentPID )then
                 [PROCESS_TABLE + ( ind * 16) + 2] = -1;
             endif;
+
+
             ind = ind + 1;
         endwhile;
     endif; 
