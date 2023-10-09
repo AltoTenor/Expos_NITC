@@ -76,16 +76,13 @@ _L8:
 MOV R16, 3
 EQ R16, EC
 JZ R16, _L9
-MOV R16, "AE"
+MOV R16, "ArithExc"
 PORT P1, R16
 OUT
 JMP _L10
 _L9:
 _L10:
-MOV R16, "Error other "
-PORT P1, R16
-OUT
-MOV R16, "than Pg Fault"
+MOV R16, "Error"
 PORT P1, R16
 OUT
 PUSH R0

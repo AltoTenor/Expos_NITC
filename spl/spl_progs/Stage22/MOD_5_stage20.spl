@@ -46,6 +46,7 @@ if([new_process_table + 4] == CREATED) then
     //MODE FLAG
     [new_process_table + 9] = 0;
 
+    //In case of error try multipop BP
     BP = [[new_process_table + 11] * 512 ];
     //UPTR restored to Stack Pointer
     SP = [new_process_table + 13];
