@@ -34,6 +34,7 @@ if (functionNum == 2)then
     alias resourceTableBase R1;
     resourceTableBase = [PROCESS_TABLE + (currentPID * 16) + 11]*512 + 496;
     
+    //doubt why not files deleted
     alias i R4;
     i = 0;
     while(i<8)do

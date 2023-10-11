@@ -22,13 +22,8 @@ alias sysCallNoPhysicalAddr R3;
 
 
 //Try to find sysCallNoPhysicalAddr and the sysCallNo
-
-physicalPageNum = [PTBR + 2 * ((userSP - 5)/ 512)];
-offset = (userSP - 5) % 512;
-sysCallNoPhysicalAddr = (physicalPageNum * 512) + offset;
-
 alias sysCallNo R4;
-sysCallNo=[sysCallNoPhysicalAddr];
+sysCallNo=[([PTBR + 2 * ((userSP - 5)/ 512)] * 512) + (userSP - 5) % 512];
 
 physicalPageNum = [PTBR + 2 * ((userSP - 1)/ 512)];
 offset = (userSP - 1) % 512;
@@ -56,14 +51,10 @@ if (sysCallNo==1)then
     userID = [process_table + 3];
 
     //Retrieving fileName
-    physicalPageNum = [PTBR + 2 * ((userSP - 4)/ 512)];
-    offset = (userSP - 4) % 512;
-    fileName = [(physicalPageNum * 512) + offset];
+    fileName = [([PTBR + 2 * ((userSP - 4)/ 512)] * 512) + (userSP - 4) % 512];
 
     //Retrieving permission
-    physicalPageNum = [PTBR + 2 * ((userSP - 3)/ 512)];
-    offset = (userSP - 3) % 512;
-    permission = [(physicalPageNum * 512) + offset];
+    permission = [([PTBR + 2 * ((userSP - 3)/ 512)] * 512) + (userSP - 3) % 512];
 
     // print permission;
 
@@ -212,7 +203,12 @@ if (sysCallNo == 4)then
     // if file is opened somewhere - *Cannot check yet*
     if ( [FILE_STATUS_TABLE + 4*inodeIndex + 1] != -1 )then
         
-        [FILE_STATUS_TABLE + 4*inodeIndex ] = -1;
+        multipush(R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R12,R13);
+        R1 = 5;
+        R2 = inodeIndex;
+        R3 = currPID;
+        call RESOURCE_MANAGER;
+        multipop(R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R12,R13);
 
         [return_addr] = -2;
 
@@ -236,13 +232,9 @@ if (sysCallNo == 4)then
     block = 8;
     while ( block < 12 )do
         if ([inodeBase + block] != -1)then
-            i=0;
-            while ( i< MAX_BUFFER)do
-                if ( [BUFFER_TABLE + 4*(i%MAX_BUFFER)] ==  [inodeBase + block])then
-                    [BUFFER_TABLE + 4*(i%MAX_BUFFER) + 1] = 0;
-                endif;
-                i=i+1;
-            endwhile;
+            if ( [BUFFER_TABLE + 4*( [inodeBase + block] % MAX_BUFFER)] ==  [inodeBase + block])then
+                [BUFFER_TABLE + 4*( [inodeBase + block] % MAX_BUFFER) + 1] = 0;
+            endif;
 
             multipush(R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13);
             R1 = 4;
