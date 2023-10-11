@@ -1,3 +1,0 @@
-// print "exiting";
-// print [PROCESS_TABLE];
-halt;

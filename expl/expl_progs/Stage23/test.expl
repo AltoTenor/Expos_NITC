@@ -5,10 +5,9 @@ int main()
         str input,inv;
     enddecl
     begin
-        temp = exposcall("Signal");
-        temp = exposcall("Wait",1);
-        temp = exposcall("Getpid");
-        temp = exposcall("Getppid");
+        temp = exposcall("Create","new.dat",1);
+        a = exposcall("Delete","new.dat");
+        temp = exposcall("Write",-2,a);
         return 0;
     end
 }
