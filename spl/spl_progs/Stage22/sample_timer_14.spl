@@ -4,7 +4,6 @@
 //Setting Stack Pointer to UArea Page number * (512 - 1)
 SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
 
-[PROCESS_TABLE] = [PROCESS_TABLE] + 1;
 
 backup;
 

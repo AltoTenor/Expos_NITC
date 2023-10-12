@@ -1,0 +1,7 @@
+print "Switches: ";
+print [PROCESS_TABLE];
+print "Memory: ";
+print [PROCESS_TABLE+2];
+print "Disk : ";
+print [SYSTEM_STATUS_TABLE + 6];
+halt;
