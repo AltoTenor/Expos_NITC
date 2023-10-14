@@ -1,0 +1,13 @@
+int main()
+{
+    decl
+        int a,temp;
+        str input,inv;
+    enddecl
+    begin
+        temp = exposcall("Create","new.dat",1);
+        a = exposcall("Delete","new.dat");
+        temp = exposcall("Write",-2,a);
+        return 0;
+    end
+}

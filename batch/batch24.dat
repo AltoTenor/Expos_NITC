@@ -1,0 +1,28 @@
+load --os $HOME/myexpos/spl/spl_progs/Stage23/OStartup14.xsm
+load --library $HOME/myexpos/expl/library.lib
+load --module 0 $HOME/myexpos/spl/spl_progs/Stage23/MOD_0_stage23.xsm
+load --module 1 $HOME/myexpos/spl/spl_progs/Stage23/MOD_1_stage22.xsm
+load --module 2 $HOME/myexpos/spl/spl_progs/Stage23/MOD_2_stage19.xsm
+load --module 4 $HOME/myexpos/spl/spl_progs/Stage23/MOD_4_stage23.xsm
+load --module 5 $HOME/myexpos/spl/spl_progs/Stage23/MOD_5_stage20.xsm
+load --module 7 $HOME/myexpos/spl/spl_progs/Stage23/MOD_7_stage23.xsm
+load --int=timer $HOME/myexpos/spl/spl_progs/Stage23/sample_timer_14.xsm
+load --int=console $HOME/myexpos/spl/spl_progs/Stage23/console_int16.xsm
+load --int=disk $HOME/myexpos/spl/spl_progs/Stage23/disk_int18.xsm
+load --int=4 $HOME/myexpos/spl/spl_progs/Stage23/int4_stage23.xsm
+load --int=6 $HOME/myexpos/spl/spl_progs/Stage23/int6_stage16.xsm
+load --int=7 $HOME/myexpos/spl/spl_progs/Stage23/int7_stage15.xsm
+load --int=8 $HOME/myexpos/spl/spl_progs/Stage23/int8_stage22.xsm
+load --int=9 $HOME/myexpos/spl/spl_progs/Stage23/int9_stage19.xsm
+load --int=10 $HOME/myexpos/spl/spl_progs/Stage23/int10_stage20.xsm
+load --int=11 $HOME/myexpos/spl/spl_progs/Stage23/int11_stage21.xsm
+load --int=13 $HOME/myexpos/spl/spl_progs/Stage23/int13_stage22.xsm
+load --int=14 $HOME/myexpos/spl/spl_progs/Stage23/int14_stage22.xsm
+load --int=15 $HOME/myexpos/spl/spl_progs/Stage23/int15_stage23.xsm
+load --exhandler $HOME/myexpos/spl/spl_progs/Stage23/exception_handler.xsm
+load --idle $HOME/myexpos/expl/expl_progs/Stage23/idle.xsm
+load --init $HOME/myexpos/expl/expl_progs/Stage23/ShellMenu.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage23/oddnos.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage23/test.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage23/fC.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage23/fD.xsm
