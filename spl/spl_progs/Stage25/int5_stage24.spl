@@ -1,0 +1,154 @@
+alias currPID R9;
+alias userSP R10;
+alias return_addr R11;
+alias process_table R12;
+
+userSP = SP;
+currPID = [SYSTEM_STATUS_TABLE+1];
+process_table = PROCESS_TABLE + (currPID * 16);
+
+//Work
+//UPTR set to Stack Ptr
+[process_table + 13] = SP;
+
+//UA Page No.
+SP = [process_table + 11] * 512 - 1;
+
+//Accessing physical sysCallNo location
+
+alias physicalPageNum R1;
+alias offset R2;
+alias sysCallNoPhysicalAddr R3;
+
+
+//Try to find sysCallNoPhysicalAddr and the sysCallNo
+alias sysCallNo R4;
+sysCallNo=[([PTBR + 2 * ((userSP - 5)/ 512)] * 512) + (userSP - 5) % 512];
+
+physicalPageNum = [PTBR + 2 * ((userSP - 1)/ 512)];
+offset = (userSP - 1) % 512;
+
+return_addr = (physicalPageNum * 512) + offset;
+
+
+// print sysCallNo;
+
+//Setting Mode Flag
+[process_table + 9] = sysCallNo;
+//temp: R1,R2,R3, imp : R4,R9,R10,R11,R12
+
+
+//Open SysCall
+
+if (sysCallNo==2)then 
+    alias pprtBase R5;
+    alias pprtIndex R6;
+    
+    //Finding free entry in PPRT
+    pprtBase = [process_table + 11] * 512 + RESOURCE_TABLE_OFFSET;
+    pprtIndex = 0;
+    while (pprtIndex<8 && [pprtBase + 2*pprtIndex]!=-1)do
+        pprtIndex = pprtIndex + 1;
+    endwhile;
+
+    //No free entries
+    if (pprtIndex == 8)then
+        //Present already so returning
+        [return_addr] = -3;
+
+        // Reset Mode Flag
+        [process_table + 9] = 0;
+
+        //Reset User Stack
+        SP = [process_table + 13];
+        ireturn;
+    endif;
+
+    alias fileName R2;
+    //Retrieving fileName
+    fileName = [([PTBR + 2 * ((userSP - 4)/ 512)] * 512) + (userSP - 4) % 512];
+
+    //Calling Open SysCall
+    multipush(R4,R5,R6,R9,R10,R11,R12);
+    R1 = 3;
+    R2 = fileName;
+    call FILE_MANAGER;
+    multipop(R4,R5,R6,R9,R10,R11,R12);
+
+    //If Open SysCall Fails
+    if ( R0 < 0 )then
+        //Present already so returning
+        [return_addr] = R0;
+
+        // Reset Mode Flag
+        [process_table + 9] = 0;
+
+        //Reset User Stack
+        SP = [process_table + 13];
+        ireturn;
+    endif;
+
+    //Updating PPRT
+    [pprtBase + 2*pprtIndex] = FILE;
+    [pprtBase + 2*pprtIndex + 1] = R0;
+
+
+    //Returning File Descriptor
+    [return_addr] = pprtIndex;
+
+    // Reset Mode Flag
+    [process_table + 9] = 0;
+
+    //Reset User Stack
+    SP = [process_table + 13];
+    ireturn;
+
+endif;
+
+//Close SysCall
+if (sysCallNo==3)then 
+    alias fileDescriptor R5;
+    alias pprtBase R6;
+    alias indexOFT R7;
+    
+    pprtBase = [process_table + 11] * 512 + RESOURCE_TABLE_OFFSET;
+
+    //Retrieving fileDescriptor
+    fileDescriptor = [([PTBR + 2 * ((userSP - 4)/ 512)] * 512) + (userSP - 4) % 512];
+
+    if (fileDescriptor<0 || fileDescriptor>=8 || [pprtBase + 2*fileDescriptor]!=FILE )then
+        //Return Value
+        [return_addr] = -1;
+
+        // Reset Mode Flag
+        [process_table + 9] = 0;
+
+        //Reset User Stack
+        SP = [process_table + 13];
+        ireturn;
+    endif;
+
+    indexOFT = [pprtBase + 2*fileDescriptor + 1];
+
+    //Calling Close SysCall
+    multipush(R4,R5,R6,R7,R9,R10,R11,R12);
+    R1 = 4;
+    R2 = indexOFT;
+    call FILE_MANAGER;
+    multipop(R4,R5,R6,R7,R9,R10,R11,R12);
+    
+
+    [pprtBase + 2*fileDescriptor] = -1;
+
+    //Returning File Descriptor
+    [return_addr] = 0;
+
+    // Reset Mode Flag
+    [process_table + 9] = 0;
+
+    //Reset User Stack
+    SP = [process_table + 13];
+
+    ireturn;
+
+endif;
