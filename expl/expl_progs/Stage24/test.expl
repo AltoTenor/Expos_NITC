@@ -1,13 +1,17 @@
 int main()
 {
     decl
-        int a,temp;
+        int a,temp,fd;
         str input,inv;
     enddecl
     begin
-        temp = exposcall("Create","new.dat",1);
-        a = exposcall("Delete","new.dat");
-        temp = exposcall("Write",-2,a);
+        temp = exposcall("Create","test.dat",1);
+        fd = exposcall("Open","test.dat");
+        temp = exposcall("Close",fd);
+        temp = exposcall("Write",-2,temp);
+
+        breakpoint;
+        a = exposcall("Delete","test.dat");
         return 0;
     end
 }

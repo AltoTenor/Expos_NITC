@@ -128,10 +128,16 @@ while( index < 512 )do
     [UAPage*512 + index + 1] = [ParentUAPageNo + index + 1];
 
     //Incrementing Process_Count if current process using some semaphore
-    if ( [ParentUAPageNo + index] == 1 )then
+    if ( [ParentUAPageNo + index] == SEMAPHORE )then
         semaphoreIndex = [ParentUAPageNo + index + 1];
         processCount = SEMAPHORE_TABLE + 4*semaphoreIndex + 1;
         [processCount] = [processCount] + 1;
+    endif;
+
+    alias OFTIndex R6;
+    if ( [ParentUAPageNo + index] == FILE )then
+        OFTIndex = OPEN_FILE_TABLE + 4 * [ParentUAPageNo + index + 1] + 1;
+        [OFTIndex] = [OFTIndex] + 1;
     endif;
 
     index = index + 2;
@@ -155,23 +161,25 @@ while (index<16)do
     index = index + 1;
 endwhile;
 
-//Updating MEMORY_FREE_LIST of Lib Stack Heap
+//Updating MEMORY_FREE_LIST of Lib Stack Heap and Code
 index = 0;
-while (index<7)do
-    [MEMORY_FREE_LIST + [PTBR + index] ] = [MEMORY_FREE_LIST + [PTBR + index] ] + 1;
+while (index<15)do
+    if (index < 7 || [PTBR+index]!=-1)then
+        [MEMORY_FREE_LIST + [PTBR + index] ] = [MEMORY_FREE_LIST + [PTBR + index] ] + 1;
+    endif;
     index = index + 2;
 endwhile;
 
 
 
 //MEMORY_FREE_LIST of Code Pages
-index = 8;
-while (index<15)do
-    if ([PTBR+index]!=-1)then
-        [MEMORY_FREE_LIST + [PTBR + index] ] = [MEMORY_FREE_LIST + [PTBR + index] ] + 1;  
-    endif;
-    index = index + 2;
-endwhile;
+// index = 8;
+// while (index<15)do
+//     if ([PTBR+index]!=-1)then
+//         [MEMORY_FREE_LIST + [PTBR + index] ] = [MEMORY_FREE_LIST + [PTBR + index] ] + 1;  
+//     endif;
+//     index = index + 2;
+// endwhile;
 
 
 
