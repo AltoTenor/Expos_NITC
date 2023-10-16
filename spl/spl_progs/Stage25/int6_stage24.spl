@@ -50,6 +50,11 @@ else
     //Invalid File Descriptor
     if (fileDescriptor<0 || fileDescriptor>=8 )then
         [physicalAddrRetVal] = -1;
+        // Reset Mode Flag
+        [PROCESS_TABLE + currPID* 16 + 9] = 0;
+
+        SP = [PROCESS_TABLE + ( currPID * 16) + 13];
+        ireturn;
     endif;
 
 

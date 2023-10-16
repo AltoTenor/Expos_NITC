@@ -2,8 +2,9 @@
 
 alias functionNum R1;
 
-//Buffered Read
-if (functionNum==2)then
+
+//Buffered Read and Write
+if (functionNum==1 || functionNum==2)then
     alias DiskBlockNo R2;
     alias offset R3;
     alias wordaddr R4;
@@ -52,9 +53,16 @@ if (functionNum==2)then
 
     endif;
 
+    if (functionNum == 1)then
+        [ (71 + BufferNo)*512 + offset ] = wordaddr; //actually word here not addr
+        [BUFFER_TABLE + 4*BufferNo + 1] = 1;  //Marking Dirty Bit
+    endif;
 
-    //Storing in physical word address
-    [([PTBR + 2 * (wordaddr)/ 512] * 512) + ((wordaddr) % 512)] = [ (71 + BufferNo)*512 + offset ];
+
+    if (functionNum == 2)then
+        //Storing in physical word address
+        [([PTBR + 2 * (wordaddr)/ 512] * 512) + ((wordaddr) % 512)] = [ (71 + BufferNo)*512 + offset ];
+    endif;
 
     //Calling Release Buffer
     multipush(R1,R2,R3,R4,R5);
@@ -66,7 +74,6 @@ if (functionNum==2)then
 
     return;
 endif;
-
 
 
 //Open SysCall

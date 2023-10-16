@@ -37,7 +37,7 @@ return_addr = (physicalPageNum * 512) + offset;
 //Setting Mode Flag
 [process_table + 9] = sysCallNo;
 
-
+//Create Syscall
 if (sysCallNo==1)then
 
     alias fileName R5;
@@ -123,7 +123,7 @@ endif;
 
 
 //temp: R1,R2,R3, imp : R4,R9,R10,R12,R13
-
+//Delete SysCall
 if (sysCallNo == 4)then
     alias fileName R5;
     alias inodeIndex R6;
