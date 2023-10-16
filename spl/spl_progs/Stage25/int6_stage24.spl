@@ -35,7 +35,7 @@ physicalAddrRetVal = ([PTBR + 2 * (userSP - 1)/ 512] * 512) + ((userSP - 1) % 51
 //Console Case
 if (fileDescriptor == -1)then
 
-    //call DEVICE MANAGER 
+    //call DEVICE MANAGER terminal Write
     multipush(R4,R5,R6,R9,R10);
     R1 = 4;
     R2 = [SYSTEM_STATUS_TABLE + 1];
