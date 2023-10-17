@@ -13,8 +13,10 @@ int main()
 
         //Read File Names
         temp = exposcall("Read",fd,fileName);
-        while( fileName != -1 AND temp != -2 )do
-            temp = exposcall("Write",-2,fileName);
+        while( temp != -2 )do
+            if (fileName != -1)then
+                temp = exposcall("Write",-2,fileName);
+            endif;
             temp = exposcall("Seek",fd,7);
             temp = exposcall("Read",fd,fileName);
         endwhile;
