@@ -1,0 +1,26 @@
+int main()
+{
+    decl
+        int temp,fd;
+        int fileName;
+    enddecl
+    begin
+        //Open root file
+        fd = exposcall("Open","root");
+
+        //Set pointer to Start
+        temp = exposcall("Seek",fd,0);
+
+        //Read File Names
+        temp = exposcall("Read",fd,fileName);
+        while( fileName != -1 AND temp != -2 )do
+            temp = exposcall("Write",-2,fileName);
+            temp = exposcall("Seek",fd,7);
+            temp = exposcall("Read",fd,fileName);
+        endwhile;
+        
+        //Closed root
+        temp = exposcall("Close",fd);
+        return 0;
+    end
+}

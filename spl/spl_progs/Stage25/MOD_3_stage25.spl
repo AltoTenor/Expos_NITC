@@ -89,6 +89,12 @@ if (functionNum==3)then
         inodeIndex = inodeIndex + 1;
     endwhile;
 
+    //File Not Found
+    if (inodeIndex == MAX_FILE_NUM)then
+        R0 = -1;
+        return;
+    endif;
+
     //Calling Acquire Inode
     multipush(R1,R2,R3);
     R1 = 4;

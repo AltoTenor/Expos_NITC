@@ -28,9 +28,9 @@ load --exec $HOME/myexpos/expl/expl_progs/Stage25/oddnos.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/gcd.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/test.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/fC.xsm
-load --exec $HOME/myexpos/expl/expl_progs/Stage25/fPrint.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/fD.xsm
-load --exec $HOME/myexpos/expl/expl_progs/Stage25/assg24.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage25/cat.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage25/ls.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/a251.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/a252.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/a253.xsm
