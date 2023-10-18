@@ -31,6 +31,8 @@ load --exec $HOME/myexpos/expl/expl_progs/Stage25/fC.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/fD.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/cat.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/ls.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage25/cp.xsm
+load --exec $HOME/myexpos/expl/expl_progs/Stage25/rm.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/a251.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/a252.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage25/a253.xsm

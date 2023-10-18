@@ -16,7 +16,7 @@ load --int=9 $HOME/myexpos/spl/spl_progs/Stage20/int9_stage19.xsm
 load --int=10 $HOME/myexpos/spl/spl_progs/Stage20/int10_stage20.xsm
 load --exhandler $HOME/myexpos/spl/spl_progs/Stage20/exception_handler.xsm
 load --idle $HOME/myexpos/expl/expl_progs/Stage20/idle.xsm
-load --init $HOME/myexpos/expl/expl_progs/Stage20/fork.xsm
+load --init $HOME/myexpos/expl/expl_progs/Stage20/LListOE.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage20/oddnos.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage20/gcd.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage20/student.xsm
