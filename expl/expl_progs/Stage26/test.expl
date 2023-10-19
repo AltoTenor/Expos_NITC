@@ -1,0 +1,14 @@
+int main()
+{
+    decl
+        int a,temp,fd;
+        str input,inv;
+    enddecl
+    begin
+        fd = exposcall("Open","sample.dat");
+        temp = exposcall("Write",fd,"Chandi");
+        temp = exposcall("Seek",fd,4);
+        temp = exposcall("Write",fd,"Chandu");
+        return 0;
+    end
+}
