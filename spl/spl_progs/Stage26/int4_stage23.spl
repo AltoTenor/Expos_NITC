@@ -176,10 +176,10 @@ if (sysCallNo == 4)then
         ireturn; 
     endif;
 
-    //userid is not same as owner of file - *Cannot check yet*
+    //userid is not same as owner of file 
     if ([inodeBase + 4] == 0)then
         //User id isnt root or owner
-        if ([inodeBase + 3] != 1 && [inodeBase + 3] != userID )then
+        if ([process_table + 3] != ROOT && [inodeBase + 3] != userID )then
             [return_addr] = -1;
 
             // Reset Mode Flag
@@ -263,7 +263,7 @@ if (sysCallNo == 4)then
     endwhile;
 
 
-    //Release INODE -  *Cannot check yet*
+    //Release INODE 
     multipush(R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13);
     R1 = 5;
     R2 = inodeIndex;

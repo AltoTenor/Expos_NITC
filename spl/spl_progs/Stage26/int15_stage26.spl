@@ -31,7 +31,7 @@ sysCallNo=[sysCallNoPhysicalAddr];
 
 [PROCESS_TABLE + currPID * 16 + 9] = sysCallNo;
 
-if ( currPID != 1 && [PROCESS_TABLE + ( currPID * 16) + 3] != 1 )then
+if ( currPID != 2 || [PROCESS_TABLE + ( currPID * 16) + 3] != 1 )then
     //Return -1
     physicalPageNum = [PTBR + 2 * ((userSP - 1)/ 512)];
     offset = (userSP - 1) % 512;

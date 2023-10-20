@@ -76,7 +76,7 @@ else
 
     //If Exclusive File then check if Owner or Root. If not return -3.
     if ( [INODE_TABLE + 16*inodeIndex + 4] == EXCLUSIVE )then
-        if ( [PROCESS_TABLE + (currPID * 16) + 3]!=ROOT  || [PROCESS_TABLE + (currPID * 16) + 3] != [INODE_TABLE + 16*inodeIndex + 3] )then
+        if ( [PROCESS_TABLE + (currPID * 16) + 3]!=ROOT  && [PROCESS_TABLE + (currPID * 16) + 3] != [INODE_TABLE + 16*inodeIndex + 3] )then
             [physicalAddrRetVal] = -3;
             [PROCESS_TABLE + currPID * 16 + 9] = 0;
             SP = [PROCESS_TABLE + ( currPID * 16) + 13];

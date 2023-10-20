@@ -162,28 +162,45 @@ if (functionNum == 5)then
     index = 0 ;
     while (index < MAX_FILE_NUM )do
         if( [INODE_TABLE + 16*index + 1] != -1 )then
-            multipush(R1,R2,R4);
+            multipush(R1,R2,R3,R4);
             R3 = currentPID;
             R2 = index;
             R1 = 4;
             call RESOURCE_MANAGER;
-            multipop(R1,R2,R4);
+            multipop(R1,R2,R3,R4);
         endif;
         index = index + 1;
     endwhile;
 
 
     //Swapper Daemon not implemented
-    index = 0;
+
+
+
+    index = 2;
     while ( index < MAX_PROC_NUM )do
         if ( index != currentPID && [PROCESS_TABLE + index*16 + 4]!=TERMINATED )then
-            multipush(R1,R2,R4);
-            R2 = currentPID;
+            multipush(R1,R2,R3,R4);
             R1 = 3;
+            R2 = index;
             call PROCESS_MANAGER;
-            multipop(R1,R2,R4);
+            multipop(R1,R2,R3,R4);
         endif;
         index = index + 1;
+    endwhile;
+
+
+    index = 0;
+    while ( index < MAX_FILE_NUM) do
+        if ( [INODE_TABLE + index * 16 + 1 ]!= -1 )then
+            multipush(R1,R2,R3,R4);
+            R1 = 5;
+            R3 = currentPID;
+            R2 = index;
+            call RESOURCE_MANAGER;
+            multipop(R1,R2,R3,R4);
+        endif;
+        index =  index  + 1;
     endwhile;
     
     return;

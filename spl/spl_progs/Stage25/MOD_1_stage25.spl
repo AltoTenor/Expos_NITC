@@ -174,7 +174,7 @@ if (functionNum == 5)then
 
 
     //Swapper Daemon not implemented
-    index = 0;
+    index = 2;
     while ( index < MAX_PROC_NUM )do
         if ( index != currentPID && [PROCESS_TABLE + index*16 + 4]!=TERMINATED )then
             multipush(R1,R2,R4);
