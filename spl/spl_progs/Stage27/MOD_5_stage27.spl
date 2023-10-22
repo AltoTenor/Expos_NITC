@@ -16,17 +16,37 @@ multipush(BP);
 [process_table_entry + 14] = PTBR;
 [process_table_entry + 15] = PTLR;
 
-
-alias ind R2;
-ind = ((currentPID + 1) % 16);
-
-while( [PROCESS_TABLE + ind* 16 + 4]!=CREATED &&  [PROCESS_TABLE + ind* 16 + 4]!=READY )do
-    // breakpoint;
-    ind = ((ind + 1) % 16);
-endwhile;
+//Stage 27 modifications
 
 alias newPID R3;
-newPID = ind;
+
+if ( [SYSTEM_STATUS_TABLE + 5] != 0 )then
+    if ( [PROCESS_TABLE + 16*15 + 4] == WAIT_DISK )then
+        newPID = 0;
+        //idle scheduled as paging is ongoing and swapper is blocked
+    else
+        newPID = 15;
+        //paging needed so swapper scheduled
+    endif;
+else
+    alias ind R2;
+    ind = ((currentPID + 1) % 15);
+
+    while( 1==1 )do
+        if ( ([PROCESS_TABLE + ind* 16 + 6] == 0) && ([PROCESS_TABLE + ind* 16 + 4]==CREATED ||  [PROCESS_TABLE + ind* 16 + 4]==READY) )then
+            break;
+        endif;
+        ind = ((ind + 1) % 15);
+    endwhile;
+
+    newPID = ind;
+endif;
+
+
+
+
+
+
 
 alias new_process_table R4;
 new_process_table = PROCESS_TABLE + newPID * 16;

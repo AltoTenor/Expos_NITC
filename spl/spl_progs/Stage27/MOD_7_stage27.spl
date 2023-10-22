@@ -1,60 +1,13 @@
 //BOOT MODULE
 
 
-//Exhandler
-loadi(2, 15);
-loadi(3, 16);
-//Timer
-loadi(4, 17);
-loadi(5, 18);
-//Disk Interrupt
-loadi(6, 19);
-loadi(7, 20);
-//Console Interrupt
-loadi(8, 21);
-loadi(9, 22);
-//INT 4
-loadi(10, 23);
-loadi(11, 24);
-//INT 5
-loadi(12,25);
-loadi(13,26);
-//INT 6
-loadi(14,27);
-loadi(15,28);
-//INT 7
-loadi(16,29);
-loadi(17,30);
-//INT 8
-loadi(18,31);
-loadi(19,32);
-//INT 9
-loadi(20,33);
-loadi(21,34);
-//INT 10
-loadi(22,35);
-loadi(23,36);
-//INT 11
-loadi(24,37);
-loadi(25,38);
-//INT 12
-loadi(26,39);
-loadi(27,40);
-//INT 13
-loadi(28,41);
-loadi(29,42);
-//INT 14
-loadi(30,43);
-loadi(31,44);
-//INT 15
-loadi(32,45);
-loadi(33,46);
-//INT 16
-loadi(34,47);
-loadi(35,48);
-//INT 17
-loadi(36,49);
-loadi(37,50);
+//Loading Interrupts
+alias i R1;
+i = 0;
+while ( i <= 35)do
+    loadi(2+i,15+i);
+    i=i+1;
+endwhile;
 
 
 //MODULE 0 - RESOURCE_MANAGER MODULE
@@ -72,9 +25,13 @@ loadi(47,60);
 //MODULE 4 - DISK DEVICE_MANAGER MODULE
 loadi(48,61);
 loadi(49,62);
-//MODULE 7 - SCHEDULER MODULE
+//MODULE 5 - SCHEDULER MODULE
 loadi(50,63);
 loadi(51,64);
+//MODULE 6 - PAGER MODULE
+loadi(52,65);
+loadi(53,66);
+
 
 //InodeUser Table
 loadi(59,3);
@@ -280,12 +237,18 @@ while(idx<16)do
     idx = idx + 1;
 endwhile;
 
+//Setting Tick to zero
+idx = 0;
+while(idx<16)do
+    [PROCESS_TABLE + 16*idx] = 0;
+    idx = idx + 1;
+endwhile;
 
 //MEMORY FREE LIST
 alias i R0;
 i=0;
 while(i!=128)do
-    if (i < 81) then
+    if (i < 82) then
         [MEMORY_FREE_LIST+i]=1;
     else 
         [MEMORY_FREE_LIST+i]=0;
@@ -293,8 +256,11 @@ while(i!=128)do
     i=i+1;
 endwhile;
 
-[SYSTEM_STATUS_TABLE + 2] = 47;
+[SYSTEM_STATUS_TABLE ] = 0;
+[SYSTEM_STATUS_TABLE + 2] = 45;
 [SYSTEM_STATUS_TABLE + 3] = 0;
+[SYSTEM_STATUS_TABLE + 4] = 0;
+[SYSTEM_STATUS_TABLE + 5] = 0;
 
 
 

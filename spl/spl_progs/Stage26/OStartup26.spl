@@ -6,7 +6,7 @@ loadi(55,68);
 
 
 //Stack Ptr set to supposed physical address of kernel IDLE stack 
-SP = 82*512;
+SP = 76*512;
 call BOOT_MODULE;
 
 

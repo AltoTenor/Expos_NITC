@@ -17,13 +17,22 @@ if (functionNum == 1)then
     [SYSTEM_STATUS_TABLE + 3] = [SYSTEM_STATUS_TABLE + 3] - 1;
     [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] - 1;
 
-    newPage = 0;
+    newPage = 76;
     while( [MEMORY_FREE_LIST + newPage ] != 0 &&  newPage < NUM_MEM_PAGES )do
         newPage = newPage + 1;
     endwhile;
 
-    [MEMORY_FREE_LIST + newPage ] = 1;
+    // print "memfreecount";
+    // print [SYSTEM_STATUS_TABLE + 2];
+    // print "newpage";
+    // print newPage;
+    if (newPage == NUM_MEM_PAGES)then
+        R0 = -1;
+        return;
+    endif;
 
+
+    [MEMORY_FREE_LIST + newPage ] = 1;
     R0 = newPage;
     //breakpoint;
     return;
@@ -49,13 +58,12 @@ if (functionNum == 2)then
     //Doubt- Shouldnt this check happen only if [MEMORY_FREE_LIST + releasePageNo ] == 0
     alias index R0;
     index=0;
-    while( index != 16 )do
+    while( index < 16 )do
         if ( [PROCESS_TABLE + ( index * 16) + 4] == WAIT_MEM )then
             [PROCESS_TABLE + ( index * 16) + 4] = READY;
         endif;
         index = index + 1;
     endwhile;
-
     //breakpoint;
     return;
 endif;
@@ -67,7 +75,7 @@ if (functionNum == 3)then
     alias blockNo R2;
 
     blockNo = DISK_FREE_AREA;
-    while(blockNo < DISK_SWAP_AREA &&  [DISK_FREE_LIST + blockNo]==1 )do
+    while(blockNo < DISK_SWAP_AREA &&  [DISK_FREE_LIST + blockNo]!= 0 )do
         blockNo = blockNo + 1;
     endwhile;
 
@@ -85,7 +93,7 @@ if (functionNum == 4)then
     alias BlockNo R2;
     alias currentPID R3;
 
-    [DISK_FREE_LIST + BlockNo ] = [DISK_FREE_LIST + BlockNo ] - 1;
+    [DISK_FREE_LIST + BlockNo ] = 0;
     return;
 endif; 
 
@@ -102,13 +110,13 @@ if (functionNum == 5)then
     alias j R6;
     i=0;
     while( i < MAX_PROC_NUM )do
-        j=0;
-        while( j < 10 )do
-            if ( [DISK_MAP_TABLE + 10*i + j] == BlockNo && (j == 4 || j == 5 || j==6 || j== 7) )then 
-                if ( [[PROCESS_TABLE + (i * 16) + 14] + 2 * j] != -1 )then
-                    R0 = [[PROCESS_TABLE + (i * 16) + 14] + 2 * j];
+        j=4;
+        while( j < 8 )do
+            if ( [DISK_MAP_TABLE + 10*i + j] == BlockNo )then 
+                if ( [PAGE_TABLE_BASE + (i * 20) + 2*j] != -1 )then
+                    R0 = [PAGE_TABLE_BASE + (i * 20) + 2*j] ;
                     [MEMORY_FREE_LIST + R0] = [MEMORY_FREE_LIST + R0] + 1; 
-                    print "ReuseMpage";
+                    // print "ReuseMpage";
                     return;
                 endif;
             endif;
@@ -122,8 +130,8 @@ if (functionNum == 5)then
     multipush(R1,R2,R3,R4,R5,R6);
     R1 = 1;
     call MEMORY_MANAGER;
-    retPageNo = R0;
     multipop(R1,R2,R3,R4,R5,R6);
+    retPageNo = R0;
     
     
     multipush(R0,R1,R2,R3,R4,R5,R6);
@@ -134,8 +142,33 @@ if (functionNum == 5)then
     call DEVICE_MANAGER;
     multipop(R0,R1,R2,R3,R4,R5,R6);
 
+    
+
     R0 = retPageNo;
     // breakpoint;
+    return;
+endif;
+
+
+
+
+
+//Get Swap Block
+if (functionNum == 6)then
+
+    alias blockNo R2;
+
+    blockNo = DISK_SWAP_AREA;
+    while(blockNo < DISK_SIZE &&  [DISK_FREE_LIST + blockNo]!=0 )do
+        blockNo = blockNo + 1;
+    endwhile;
+
+    if (blockNo==DISK_SIZE)then
+        R0 = -1;
+    else
+        [DISK_FREE_LIST + blockNo] = 1;
+        R0 = blockNo;
+    endif;
     return;
 endif;
 
