@@ -5,9 +5,9 @@ int main()
         str input,inv;
     enddecl
     begin
-        a = exposcall("Newusr","aritro","pass");
-        temp = exposcall("Write",-2,a);
-
+        // a = exposcall("Newusr","aritro","pass");
+        // temp = exposcall("Write",-2,a);
+        breakpoint;
         return 0;
     end
 }

@@ -40,4 +40,4 @@ load --exec $HOME/myexpos/expl/expl_progs/Stage26/rm.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage26/lu.xsm
 load --exec $HOME/myexpos/expl/expl_progs/Stage26/ru.xsm
 load --data $HOME/myexpos/sample.dat
-load --data $HOME/myexpos/num.dat
+load --data $HOME/myexpos/numbers.dat
