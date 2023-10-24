@@ -64,7 +64,7 @@ if ( functionNum == 1 )then
     endif;
 
 
-    print pidIndex;
+    // print pidIndex;
     //Set tick field to 0
     [PROCESS_TABLE + 16*pidIndex] = 0;
 
