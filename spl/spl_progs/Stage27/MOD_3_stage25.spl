@@ -118,6 +118,7 @@ if (functionNum==3)then
         call RESOURCE_MANAGER;
         multipop(R1,R2,R3);
         R0 = -1;
+        return;
     endif;
 
     OFTIndex = 0;
@@ -135,6 +136,7 @@ if (functionNum==3)then
         call RESOURCE_MANAGER;
         multipop(R1,R2,R3,R4);
         R0 = -2;
+        return;
     endif;
 
     //Setting up the Open File Table and File Status Table
